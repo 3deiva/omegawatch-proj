@@ -29,3 +29,5 @@ a {
 .App {
   flex: 1;
 }
+
+@import 'leaflet/dist/leaflet.css';
