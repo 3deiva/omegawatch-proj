@@ -1,19 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-import video from "../assets/SampleVideo_720x480_1mb.mp4";
+// import video from "../assets/SampleVideo_720x480_1mb.mp4";
 
 function LiveFeed() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate(); // Initialize useNavigate
 
-  const handleStart = () => {
-    setIsStreaming(true);
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  const handleStart = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/start_camera", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const data = await response.json();
+      console.log(data.message);
+      setIsStreaming(true);
+    } catch (err) {
+      console.error("error starting camera: ", err)
+    }
   };
 
-  const handleStop = () => {
+  const handleStop = async () => {
     setIsStreaming(false);
     setShowPopup(true); // Show popup on stop
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/release_camera", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json()
+      console.log(data.message);
+    } catch (err) {
+      console.error("error releasing camera: ", err);
+    }
   };
 
   const handleClosePopup = () => {
@@ -26,7 +58,7 @@ function LiveFeed() {
 
   return (
     <div className="flex h-screen">
-      {!isStreaming ? (
+      {/* {!isStreaming ? (
         <div className="flex flex-col justify-center items-center w-full mt-[-10%]">
           <h1 className="text-2xl font-bold mb-4">Live Drone Feed</h1>
           <div className="button-container flex flex-col space-y-4">
@@ -45,16 +77,57 @@ function LiveFeed() {
           </div>
         </div>
       ) : (
-        <>
-          <div className="sidebar bg-gray-800 text-white p-4 flex flex-col justify-center items-center md:w-64 w-full">
+        <> */}
+          {/* <div className="sidebar bg-gray-800 text-white p-4 flex flex-col justify-center items-center md:w-64 w-full mt-[-4%]">
             <h1 className="text-2xl font-bold mb-4">Live Drone Feed</h1>
             <div className="button-container flex flex-col space-y-4">
+            {!isStreaming ? (
               <button
                 onClick={handleStart}
                 className="start-button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
               >
                 Start
               </button>
+            ) : (
+              <button
+                onClick={handleStop}
+                className="stop-button bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Stop
+              </button>
+            )}
+            </div>
+          </div>
+          <div className="content flex-1 p-4 h-screen md:ml-64">
+            {isStreaming && (
+              <div className="video-container w-full h-full">
+                <img
+                  src="http://127.0.0.1:5000/video"
+                  alt="Live Stream"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+          </div>
+        {/* </>
+      )} */}
+       {!isStreaming ? (
+        <div className="flex flex-col justify-center items-center w-full mt-[-10%]">
+          <h1 className="text-2xl font-bold mb-4">Live Drone Feed</h1>
+          <div className="button-container flex flex-col space-y-4">
+          <button
+            onClick={handleStart}
+            className="start-button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Start
+          </button>
+        </div>
+        </div>
+      ) : (
+        <>
+          <div className="sidebar bg-gray-800 text-white p-4 flex flex-col justify-center items-center md:w-64 w-full mt-[-4%]">
+            <h1 className="text-2xl font-bold mb-4">Live Drone Feed</h1>
+            <div className="button-container flex flex-col space-y-4">
               <button
                 onClick={handleStop}
                 className="stop-button bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -62,17 +135,16 @@ function LiveFeed() {
                 Stop
               </button>
             </div>
-          </div>
+            </div>
           <div className="content flex-1 p-4 h-screen md:ml-64">
             {isStreaming && (
               <div className="video-container w-full h-full">
-                <video
-                  src={video}
-                  controls
-                  autoPlay
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <img
+                src="http://127.0.0.1:5000/video"
+                alt="Live Stream"
+                className="w-full h-full object-cover"
+              />
+            </div>
             )}
           </div>
         </>

@@ -19,7 +19,6 @@ function AnalyticsDashboard() {
       },
     ],
   };
-
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
@@ -28,7 +27,7 @@ function AnalyticsDashboard() {
       </header>
 
       {/* Main Content */}
-      <div className="p-4 space-y-6">
+      <div className="p-4 space-y-6 pb-20">
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white shadow-md p-6 rounded-lg">

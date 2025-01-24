@@ -189,17 +189,24 @@ video {
   -webkit-text-fill-color: transparent;
 }
 
+header {
+  position: relative;
+  z-index: 20;
+}
+
 .sidebar {
   width: 250px;
   height: 100vh;
   position: fixed;
-  top: 0;
+  top: 64px;
   left: 0;
+  z-index: 10;
 }
 
 .content {
   margin-left: 250px;
-  height: 100vh;
+  height: 98vh;
+  /* margin-top: 64px; */
 }
 
 .overlay {
