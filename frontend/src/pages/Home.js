@@ -1,48 +1,164 @@
-import { Link } from 'react-router-dom';
-import liveFeedImage from '../assets/live-feed.png';
-import pathVisualizationImage from '../assets/path-visualization.png';
-import analyticsDashboardImage from '../assets/analytics-dashboard.png';
+import { Link } from "react-router-dom";
+import liveFeedImage from "../assets/live-feed.png";
+import pathVisualizationImage from "../assets/path-visualization.png";
+import analyticsDashboardImage from "../assets/analytics-dashboard.png";
 
 function Home() {
   return (
-    <main className="p-6 space-y-8">
-      <section className="text-center bg-blue-100 p-8 rounded-lg shadow-md">
-        <h1 className="omegawatch">OMEGAWATCH</h1>
-        <p className="text-gray-700">
-          Our mission is to find efficient paths and provide real-time insights during disasters using drones and machine learning.
-        </p>
+    <div className="min-h-screen bg-indigo-50">
+      {/* Hero Section */}
+      <section className="pt-32 pb-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-8">
+              <div className="inline-flex items-center px-4 py-2 bg-zinc-100 rounded-full">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span className="ml-2 text-sm text-zinc-600">
+                  Live Monitoring Active
+                </span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-bold text-zinc-900 leading-tight text-center mx-auto">
+                Intelligent Drone <br />
+                <span className="text-blue-600">Disaster Response</span>
+              </h2>
+              <p className="text-xl text-zinc-600 max-w-xl mx-auto text-center">
+                Our mission is to find efficient paths and provide real-time
+                insights during disasters using drones and machine learning.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 w-full">
+                <Link
+                  to="/live-feed"
+                  className="px-8 py-4 bg-zinc-900 text-white rounded-xl hover:bg-zinc-800 transition-colors"
+                >
+                  View Live Feed
+                </Link>
+                <Link
+                  to="/analytics"
+                  className="px-8 py-4 bg-white text-zinc-900 rounded-xl border border-zinc-200 hover:border-zinc-300 transition-colors"
+                >
+                  Open Dashboard
+                </Link>
+              </div>
+            </div>
+            <div className="relative hidden lg:block">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-3xl blur-2xl"></div>
+              <img
+                src={liveFeedImage}
+                alt="Drone View"
+                className="relative rounded-3xl shadow-2xl transform hover:scale-[1.02] transition-transform duration-300"
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Link to="/live-feed">
-        <div className="bg-white p-6 rounded-lg shadow-lg text-center hover-effect bg-cover bg-center h-80 relative flex items-center justify-center">
-          <div className="overlay" style={{ backgroundImage: `url(${liveFeedImage})` }}></div>
-          <div className="home-center">
-          <h2 className="text-xl font-semibold mb-2 relative z-10">Live Drone Feed</h2>
-          <p className="text-gray-600 relative z-10 description">View the real-time video feed captured by the drone.</p>
+      {/* Features Grid */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Live Feed Card */}
+            <div className="group relative">
+              <div className="absolute -inset-px bg-gradient-to-b from-blue-500 to-purple-500 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Link
+                to="/live-feed"
+                className="relative block bg-white p-8 rounded-3xl shadow-sm"
+              >
+                <div className="aspect-[4/3] mb-6 rounded-2xl overflow-hidden bg-zinc-100">
+                  <img
+                    src={liveFeedImage}
+                    alt="Live Feed"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-zinc-900">
+                    Live Drone Feed
+                  </h3>
+                  <p className="text-zinc-600">
+                    View the real-time video feed captured by the drone.
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            {/* Path Visualization Card */}
+            <div className="group relative">
+              <div className="absolute -inset-px bg-gradient-to-b from-blue-500 to-purple-500 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Link
+                to="/path-visualization"
+                className="relative block bg-white p-8 rounded-3xl shadow-sm"
+              >
+                <div className="aspect-[4/3] mb-6 rounded-2xl overflow-hidden bg-zinc-100">
+                  <img
+                    src={pathVisualizationImage}
+                    alt="Path Visualization"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-zinc-900">
+                    Path Visualization
+                  </h3>
+                  <p className="text-zinc-600">
+                    Track the efficient path generated by our ML model on the
+                    map.
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            {/* Analytics Card */}
+            <div className="group relative">
+              <div className="absolute -inset-px bg-gradient-to-b from-blue-500 to-purple-500 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Link
+                to="/analytics"
+                className="relative block bg-white p-8 rounded-3xl shadow-sm"
+              >
+                <div className="aspect-[4/3] mb-6 rounded-2xl overflow-hidden bg-zinc-100">
+                  <img
+                    src={analyticsDashboardImage}
+                    alt="Analytics Dashboard"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-zinc-900">
+                    Analytics Dashboard
+                  </h3>
+                  <p className="text-zinc-600">
+                    Get actionable insights based on drone data and RFID tags.
+                  </p>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
-        </Link>
-        <Link to="/path-visualization">
-        <div className="bg-white p-6 rounded-lg shadow-lg text-center hover-effect bg-cover bg-center h-80 relative flex items-center justify-center">
-        <div className="overlay" style={{ backgroundImage: `url(${pathVisualizationImage})` }}></div>
-        <div className="home-center">
-          <h2 className="text-xl font-semibold mb-2 relative z-10">Path Visualization</h2>
-          <p className="text-gray-600 relative z-10 description">Track the efficient path generated by our ML model on the map.</p>
-          </div>
-        </div>
-        </Link>
-        <Link to="/analytics">
-        <div className="bg-white p-6 rounded-lg shadow-lg text-center hover-effect bg-cover bg-center h-80 relative flex items-center justify-center">
-        <div className="overlay" style={{ backgroundImage: `url(${analyticsDashboardImage})` }}></div>
-        <div className="home-center">
-          <h2 className="text-xl font-semibold mb-2 relative z-10">Analytics Dashboard</h2>
-          <p className="text-gray-600 relative z-10 description">Get actionable insights based on drone data and RFID tags.</p>
-          </div>
-        </div>
-        </Link>
       </section>
-    </main>
+
+      {/* Stats Section */}
+      <section className="py-16 px-6 bg-[#f4f4f4]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-zinc-900">24/7</div>
+              <div className="text-sm text-zinc-600">Active Monitoring</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-zinc-900">100+</div>
+              <div className="text-sm text-zinc-600">Active Drones</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-zinc-900">99.9%</div>
+              <div className="text-sm text-zinc-600">Uptime</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-zinc-900">45ms</div>
+              <div className="text-sm text-zinc-600">Avg. Latency</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 
